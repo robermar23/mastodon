@@ -244,6 +244,10 @@ export function submitCompose(routerHistory) {
         insertIfOnline(`account:${response.data.account.id}`);
       }
 
+      if (statusId == null && response.data.in_reply_to_id == null && response.data.visibility == 'public') {
+        routerHistory.push(`/@${response.data.account.username}/${response.data.id}`);
+      }
+
       dispatch(showAlert({
         message: statusId === null ? messages.published : messages.saved,
         action: messages.open,
