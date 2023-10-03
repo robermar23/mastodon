@@ -34,8 +34,6 @@ RUN curl -L https://github.com/google/go-containerregistry/releases/download/v0.
 RUN mkdir -p /opt/bitnami/mastodon
 COPY --chown=root:root . /opt/bitnami/mastodon/
 
-RUN ls -lsa /opt/bitnami/mastodon
-
 WORKDIR /opt/bitnami/mastodon
 
 ENV RAILS_ENV="production" \
