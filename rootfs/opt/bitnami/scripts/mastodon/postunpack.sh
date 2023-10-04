@@ -19,7 +19,7 @@ set -o pipefail
 # System User
 ensure_user_exists "$MASTODON_DAEMON_USER" --group "$MASTODON_DAEMON_GROUP" --home "/home/${MASTODON_DAEMON_USER}" --system
 
-echo "${MASTODON_BASE_DIR}"
+#echo "${MASTODON_BASE_DIR}"
 #chown -R "$MASTODON_DAEMON_USER":"$MASTODON_DAEMON_GROUP" "${MASTODON_BASE_DIR}"
 
 for dir in "$MASTODON_VOLUME_DIR" "$MASTODON_TMP_DIR" "$MASTODON_SYSTEM_DIR" "$MASTODON_ASSETS_DIR"; do

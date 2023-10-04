@@ -147,11 +147,10 @@ ENV HOME="/" \
 RUN apt-get update -qq && apt-get install -y --no-install-recommends acl ca-certificates curl ffmpeg file imagemagick libbsd0 libbz2-1.0 libcom-err2 libcrypt1 libedit2 libffi7 libgcc-s1 libgmp10 libgnutls30 libgssapi-krb5-2 libhogweed6 libicu67 libidn11 libidn2-0 libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-2.4-2 liblzma5 libmd0 libncursesw6 libnettle8 libnsl2 libp11-kit0 libpq5 libreadline-dev libreadline8 libsasl2-2 libsqlite3-0 libssl-dev libssl1.1 libstdc++6 libtasn1-6 libtinfo6 libtirpc3 libunistring2 libuuid1 libxml2 libxslt1.1 procps sqlite3 zlib1g
 
 COPY prebuildfs /
-#SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN install_components
 
 COPY --from=builder /opt/bitnami/mastodon/. /opt/bitnami/mastodon
-RUN ls -lsah /opt/bitnami/mastodon/public/packs/media/fonts/roboto
 
 RUN apt-get update && apt-get upgrade -y && \
     apt-get clean && rm -rf /var/lib/apt/lists /var/cache/apt/archives
