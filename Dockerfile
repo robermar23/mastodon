@@ -147,25 +147,8 @@ ENV HOME="/" \
 RUN apt-get update -qq && apt-get install -y --no-install-recommends acl ca-certificates curl ffmpeg file imagemagick libbsd0 libbz2-1.0 libcom-err2 libcrypt1 libedit2 libffi7 libgcc-s1 libgmp10 libgnutls30 libgssapi-krb5-2 libhogweed6 libicu67 libidn11 libidn2-0 libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-2.4-2 liblzma5 libmd0 libncursesw6 libnettle8 libnsl2 libp11-kit0 libpq5 libreadline-dev libreadline8 libsasl2-2 libsqlite3-0 libssl-dev libssl1.1 libstdc++6 libtasn1-6 libtinfo6 libtirpc3 libunistring2 libuuid1 libxml2 libxslt1.1 procps sqlite3 zlib1g
 
 COPY prebuildfs /
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN mkdir -p /tmp/bitnami/pkg/cache/ && cd /tmp/bitnami/pkg/cache/ && \
-    COMPONENTS=( \
-      "python-3.9.18-2-linux-${OS_ARCH}-debian-11" \
-      "wait-for-port-1.0.6-13-linux-${OS_ARCH}-debian-11" \
-      "ruby-3.0.6-5-linux-${OS_ARCH}-debian-11" \
-      "redis-client-7.0.13-0-linux-${OS_ARCH}-debian-11" \
-      "postgresql-client-15.4.0-1-linux-${OS_ARCH}-debian-11" \
-      "node-16.20.2-1-linux-${OS_ARCH}-debian-11" \
-    ) && \
-    for COMPONENT in "${COMPONENTS[@]}"; do \
-      if [ ! -f "${COMPONENT}.tar.gz" ]; then \
-        curl -SsLf "https://downloads.bitnami.com/files/stacksmith/${COMPONENT}.tar.gz" -O ; \
-        curl -SsLf "https://downloads.bitnami.com/files/stacksmith/${COMPONENT}.tar.gz.sha256" -O ; \
-      fi && \
-      sha256sum -c "${COMPONENT}.tar.gz.sha256" && \
-      tar -zxf "${COMPONENT}.tar.gz" -C /opt/bitnami --strip-components=2 --no-same-owner --wildcards '*/files' && \
-      rm -rf "${COMPONENT}".tar.gz{,.sha256} ; \
-    done
+#SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN install_components
 
 COPY --from=builder /opt/bitnami/mastodon/. /opt/bitnami/mastodon
 RUN ls -lsah /opt/bitnami/mastodon/public/packs/media/fonts/roboto
