@@ -148,7 +148,6 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends acl ca-cert
 
 COPY prebuildfs /
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-#RUN install_packages 
 RUN mkdir -p /tmp/bitnami/pkg/cache/ && cd /tmp/bitnami/pkg/cache/ && \
     COMPONENTS=( \
       "python-3.9.18-2-linux-${OS_ARCH}-debian-11" \
